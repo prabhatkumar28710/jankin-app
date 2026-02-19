@@ -2,8 +2,15 @@ pipeline {
     agent any
 
     stages {
-        stage('Hello') {
+        stage('Withdocker') {
             steps {
+                docker{
+                    image 'node:latest'
+                    args '-p 3000:3000'
+                    name 'my-node-app'
+                    reuseNode true
+                }
+
                 echo 'Hello World2'
                 Sh'''
                 npm -version
