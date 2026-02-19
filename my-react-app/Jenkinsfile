@@ -11,17 +11,7 @@ pipeline {
             }
         }
 
-        // stage('Build') {
-        //     steps {
-        //         sh 'npm run build'
-        //     }
-        // }
-
-        // stage('Test') {
-        //     steps {
-        //         sh 'npm test -- --watchAll=false'
-        //     }
-        // }
+   
 
         stage('Deploy') {
     steps {
