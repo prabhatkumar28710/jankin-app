@@ -8,6 +8,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'node -v'
+                echo 'Building the React app...'
             }
         }
     }
