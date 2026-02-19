@@ -1,40 +1,26 @@
 pipeline {
     agent {
         docker {
-            image 'node:latest'
+            image 'node:18-alpine'
         }
     }
     stages {
+        stage('Install') {
+            steps {
+                sh 'npm ci'
+            }
+        }
+
         stage('Build') {
             steps {
-                echo 'Building the React app testing push...'
-                sh '''
-                    node -v
-                    npm install
-                    npm run build
-                '''
-            }
-            steps {
-                echo 'Build stage completed.'
+                sh 'npm run build'
             }
         }
+
         stage('Test') {
             steps {
-                echo 'Running tests...'
-                sh 'npm test'
+                sh 'npm test -- --watchAll=false'
             }
         }
-            stage('Deploy') {
-                steps {
-                    echo 'Deploying the React app...'
-                    // Add deployment steps here, e.g., copying files to a server
-                    sh '''
-                    npm start
-                    port=3001
-                    echo "React app is running on port $port"
-                    '''
-            
-                }
-            }
     }
 }
