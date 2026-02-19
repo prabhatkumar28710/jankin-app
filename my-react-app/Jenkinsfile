@@ -2,6 +2,7 @@ pipeline {
     agent {
         docker {
             image 'node:latest'
+            noreuseage true
         }
     }
     stages {
@@ -9,7 +10,32 @@ pipeline {
             steps {
                 sh 'node -v'
                 echo 'Building the React app testing push...'
+                sh '''
+                    npm install
+                    npm run build
+                '''
+            }
+            steps {
+                echo 'Build stage completed.'
             }
         }
+        stage('Test') {
+            steps {
+                echo 'Running tests...'
+                sh 'npm test'
+            }
+        }
+            stage('Deploy') {
+                steps {
+                    echo 'Deploying the React app...'
+                    // Add deployment steps here, e.g., copying files to a server
+                    sh '''
+                    npm start
+                    port=3001
+                    echo "React app is running on port $port"
+                    '''
+            
+                }
+            }
     }
 }
