@@ -5,6 +5,10 @@ pipeline {
         stage('Hello') {
             steps {
                 echo 'Hello World2'
+                Sh'''
+                npm -version
+                node -version
+                '''
             }
         }
     }
