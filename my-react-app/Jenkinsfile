@@ -1,24 +1,13 @@
 pipeline {
-    agent none
-
+    agent {
+        docker {
+            image 'node:latest'
+        }
+    }
     stages {
-        stage('Withdocker') {
-            agent {
-                docker {
-                    image 'node:latest'
-                    args '-p 3000:3000'
-                    reuseNode true
-                }
-            }
+        stage('Build') {
             steps {
-                echo 'Hello World2'
-
-                sh """
-                ls -la
-                npm -version
-                node -version
-                ls -la
-                """
+                sh 'node -v'
             }
         }
     }
